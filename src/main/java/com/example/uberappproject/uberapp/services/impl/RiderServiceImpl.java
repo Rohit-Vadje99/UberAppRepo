@@ -5,8 +5,11 @@ import com.example.uberappproject.uberapp.dto.RideDto;
 import com.example.uberappproject.uberapp.dto.RideRequestDto;
 import com.example.uberappproject.uberapp.dto.RiderDto;
 import com.example.uberappproject.uberapp.entities.RideRequest;
+import com.example.uberappproject.uberapp.entities.Rider;
+import com.example.uberappproject.uberapp.entities.User;
 import com.example.uberappproject.uberapp.entities.enums.RideRequestStatus;
 import com.example.uberappproject.uberapp.repositories.RideRequestRepository;
+import com.example.uberappproject.uberapp.repositories.RiderRepository;
 import com.example.uberappproject.uberapp.services.RiderService;
 import com.example.uberappproject.uberapp.strategies.DriverMatchingStrategy;
 import com.example.uberappproject.uberapp.strategies.RideFareCalculationStrategy;
@@ -22,12 +25,14 @@ public class RiderServiceImpl implements RiderService {
     private final RideFareCalculationStrategy rideFareCalculationStrategy;
     private final DriverMatchingStrategy driveMatchingStrategy;
     private final RideRequestRepository rideRequestRepository;
+    private  final RiderRepository riderRepository;
 
-    public RiderServiceImpl(ModelMapper modelMapper, RideFareCalculationStrategy rideFareCalculationStrategy, DriverMatchingStrategy driveMatchingStrategy, RideRequestRepository rideRequestRepository) {
+    public RiderServiceImpl(ModelMapper modelMapper, RideFareCalculationStrategy rideFareCalculationStrategy, DriverMatchingStrategy driveMatchingStrategy, RideRequestRepository rideRequestRepository, RiderRepository riderRepository) {
         this.modelMapper = modelMapper;
         this.rideFareCalculationStrategy = rideFareCalculationStrategy;
         this.driveMatchingStrategy = driveMatchingStrategy;
         this.rideRequestRepository = rideRequestRepository;
+        this.riderRepository = riderRepository;
     }
 
     @Override
@@ -63,5 +68,14 @@ public class RiderServiceImpl implements RiderService {
     @Override
     public List<RideDto> getAllMyRides() {
         return null;
+    }
+
+    @Override
+    public Rider createNewRider(User user) {
+        Rider rider = Rider.builder()
+                .user(user)
+                .rating(0.0)
+                .build();
+        return riderRepository.save(rider);
     }
 }
