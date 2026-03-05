@@ -8,7 +8,7 @@ import com.example.uberappproject.uberapp.entities.RideRequest;
 import com.example.uberappproject.uberapp.entities.enums.RideRequestStatus;
 import com.example.uberappproject.uberapp.repositories.RideRequestRepository;
 import com.example.uberappproject.uberapp.services.RiderService;
-import com.example.uberappproject.uberapp.strategies.DriveMatchingStrategy;
+import com.example.uberappproject.uberapp.strategies.DriverMatchingStrategy;
 import com.example.uberappproject.uberapp.strategies.RideFareCalculationStrategy;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,7 +22,7 @@ public class RiderServiceImpl implements RiderService {
 
     private final ModelMapper modelMapper;
     private final RideFareCalculationStrategy rideFareCalculationStrategy;
-    private final DriveMatchingStrategy driveMatchingStrategy;
+    private final DriverMatchingStrategy driveMatchingStrategy;
     private final RideRequestRepository rideRequestRepository;
 
     @Override
@@ -30,7 +30,7 @@ public class RiderServiceImpl implements RiderService {
         RideRequest rideRequest = modelMapper.map(rideRequestDto, RideRequest.class);
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
 
-        Double fare = rideFareCalculationStrategy.calculateFare(rideRequestDto);
+        Double fare = rideFareCalculationStrategy.calculateFare(rideRequest);
         rideRequest.setFare(fare);
 
         RideRequest savedRideRequest = rideRequestRepository.save(rideRequest);

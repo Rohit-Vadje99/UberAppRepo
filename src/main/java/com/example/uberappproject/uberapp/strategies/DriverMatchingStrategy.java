@@ -6,6 +6,6 @@ import com.example.uberappproject.uberapp.entities.RideRequest;
 
 import java.util.List;
 
-public interface DriveMatchingStrategy {
+public interface DriverMatchingStrategy {
     List<Driver> findMatchingDriver(RideRequest rideRequest);
 }
