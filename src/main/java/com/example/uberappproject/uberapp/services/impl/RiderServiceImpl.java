@@ -10,20 +10,25 @@ import com.example.uberappproject.uberapp.repositories.RideRequestRepository;
 import com.example.uberappproject.uberapp.services.RiderService;
 import com.example.uberappproject.uberapp.strategies.DriverMatchingStrategy;
 import com.example.uberappproject.uberapp.strategies.RideFareCalculationStrategy;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class RiderServiceImpl implements RiderService {
 
     private final ModelMapper modelMapper;
     private final RideFareCalculationStrategy rideFareCalculationStrategy;
     private final DriverMatchingStrategy driveMatchingStrategy;
     private final RideRequestRepository rideRequestRepository;
+
+    public RiderServiceImpl(ModelMapper modelMapper, RideFareCalculationStrategy rideFareCalculationStrategy, DriverMatchingStrategy driveMatchingStrategy, RideRequestRepository rideRequestRepository) {
+        this.modelMapper = modelMapper;
+        this.rideFareCalculationStrategy = rideFareCalculationStrategy;
+        this.driveMatchingStrategy = driveMatchingStrategy;
+        this.rideRequestRepository = rideRequestRepository;
+    }
 
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
