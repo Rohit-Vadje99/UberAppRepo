@@ -34,4 +34,6 @@ public class RideRequest {
 
     @Enumerated(value = EnumType.STRING)
     private RideRequestStatus rideRequestStatus;
+
+    private Double fare;
 }
