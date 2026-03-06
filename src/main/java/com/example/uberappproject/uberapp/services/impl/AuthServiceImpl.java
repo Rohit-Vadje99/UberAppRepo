@@ -12,6 +12,7 @@ import com.example.uberappproject.uberapp.services.AuthService;
 import com.example.uberappproject.uberapp.services.RiderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -34,6 +35,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public UserDto signup(SignupDto signupDto) {
         User user = userRepository.findByEmail(signupDto.getEmail()).orElseGet(()->null);
         if (user!=null){
